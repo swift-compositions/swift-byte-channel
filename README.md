@@ -39,7 +39,7 @@ and byte-capacity admission.
 ```swift
 dependencies: [
     .package(
-        url: "https://github.com/swift-foundations/swift-byte-channel.git",
+        url: "https://github.com/swift-compositions/swift-byte-channel.git",
         branch: "main"
     )
 ],

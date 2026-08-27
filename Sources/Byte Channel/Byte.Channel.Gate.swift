@@ -1,8 +1,8 @@
-import Async_Channel_Primitives
-import Async_Semaphore_Primitives
-import Buffer_Protocol_Primitives
+import Async_Channel
+import Async_Semaphore
+import Buffer_Protocol
 import Byte_Chunk
-import Index_Primitives
+import Index
 import Synchronization
 
 extension Byte.Channel {

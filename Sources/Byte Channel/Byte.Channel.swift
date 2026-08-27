@@ -1,8 +1,8 @@
-public import Async_Channel_Primitives
-public import Buffer_Protocol_Primitives
+public import Async_Channel
+public import Buffer_Protocol
 public import Byte_Chunk
-public import Byte_Primitives
-public import Index_Primitives
+public import Byte
+public import Index
 
 extension Byte {
     /// A typed, bidirectional channel of owned byte chunks.

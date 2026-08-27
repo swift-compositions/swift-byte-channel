@@ -1,6 +1,6 @@
-import Async_Channel_Primitives
+import Async_Channel
 import Byte_Chunk
-import Index_Primitives
+import Index
 
 extension Byte.Channel {
     /// The move-only inbound endpoint for one chunk at a time.

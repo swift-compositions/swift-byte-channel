@@ -1,4 +1,4 @@
-import Async_Channel_Primitives
+import Async_Channel
 import Byte_Chunk
 
 extension Byte.Channel {

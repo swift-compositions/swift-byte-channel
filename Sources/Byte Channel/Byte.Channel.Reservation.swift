@@ -1,4 +1,4 @@
-import Async_Semaphore_Primitives
+import Async_Semaphore
 
 extension Byte.Channel {
     /// An owned byte-budget charge released exactly once as bytes are emitted.

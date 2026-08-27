@@ -1,6 +1,6 @@
-public import Buffer_Linear_Primitives
-public import Byte_Primitives
-public import Index_Primitives
+public import Buffer_Linear
+public import Byte
+public import Index
 
 extension Byte {
     /// An owned, contiguous, initialized sequence of bytes.

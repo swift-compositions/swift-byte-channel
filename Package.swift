@@ -17,23 +17,23 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            url: "https://github.com/swift-primitives/swift-async-primitives.git",
+            url: "https://github.com/swift-molecules/swift-async.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-buffer-linear-primitives.git",
+            url: "https://github.com/swift-molecules/swift-buffer-linear.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-buffer-primitives.git",
+            url: "https://github.com/swift-molecules/swift-buffer.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-byte-primitives.git",
+            url: "https://github.com/swift-molecules/swift-byte.git",
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-primitives/swift-index-primitives.git",
+            url: "https://github.com/swift-molecules/swift-index.git",
             branch: "main"
         ),
     ],
@@ -42,22 +42,22 @@ let package = Package(
             name: "Byte Chunk",
             dependencies: [
                 .product(
-                    name: "Buffer Linear Primitives",
-                    package: "swift-buffer-linear-primitives"
+                    name: "Buffer Linear",
+                    package: "swift-buffer-linear"
                 ),
-                .product(name: "Byte Primitives", package: "swift-byte-primitives"),
-                .product(name: "Index Primitives", package: "swift-index-primitives"),
+                .product(name: "Byte", package: "swift-byte"),
+                .product(name: "Index", package: "swift-index"),
             ]
         ),
         .target(
             name: "Byte Channel",
             dependencies: [
                 "Byte Chunk",
-                .product(name: "Async Channel Primitives", package: "swift-async-primitives"),
-                .product(name: "Async Semaphore Primitives", package: "swift-async-primitives"),
-                .product(name: "Buffer Protocol Primitives", package: "swift-buffer-primitives"),
-                .product(name: "Byte Primitives", package: "swift-byte-primitives"),
-                .product(name: "Index Primitives", package: "swift-index-primitives"),
+                .product(name: "Async Channel", package: "swift-async"),
+                .product(name: "Async Semaphore", package: "swift-async"),
+                .product(name: "Buffer Protocol", package: "swift-buffer"),
+                .product(name: "Byte", package: "swift-byte"),
+                .product(name: "Index", package: "swift-index"),
             ]
         ),
         .testTarget(
