@@ -10,7 +10,7 @@ extension Byte {
     @frozen
     public struct Chunk: ~Copyable, Sendable {
         @usableFromInline
-        var payload: Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Byte>>.Linear
+        var payload: Buffer<Storage::Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Byte>>.Linear
 
         /// Creates a chunk by initializing its payload through an output span.
         @inlinable
@@ -24,7 +24,7 @@ extension Byte {
         @usableFromInline
         init(
             _ payload:
-                consuming Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Byte>>.Linear
+                consuming Buffer<Storage::Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Byte>>.Linear
         ) {
             self.payload = consume payload
         }

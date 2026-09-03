@@ -7,7 +7,7 @@ extension Byte.Chunk {
     @frozen
     public struct Input: ~Copyable, Sendable {
         @usableFromInline
-        var payload: Buffer<Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Byte>>.Linear
+        var payload: Buffer<Storage::Storage<Memory.Allocator<Memory.Heap>>.Contiguous<Byte>>.Linear
 
         /// Creates an empty input with at least the requested byte capacity.
         @inlinable
