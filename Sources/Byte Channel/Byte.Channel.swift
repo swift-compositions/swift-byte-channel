@@ -1,5 +1,5 @@
 public import Async_Channel
-public import Buffer_Protocol
+public import Buffer
 public import Byte_Chunk
 public import Byte
 public import Index

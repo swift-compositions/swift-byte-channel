@@ -1,6 +1,6 @@
 import Async_Channel
 import Async_Semaphore
-import Buffer_Protocol
+import Buffer
 import Byte_Chunk
 import Index
 import Synchronization

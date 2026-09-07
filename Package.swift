@@ -55,7 +55,7 @@ let package = Package(
                 "Byte Chunk",
                 .product(name: "Async Channel", package: "swift-async"),
                 .product(name: "Async Semaphore", package: "swift-async"),
-                .product(name: "Buffer Protocol", package: "swift-buffer"),
+                .product(name: "Buffer", package: "swift-buffer"),
                 .product(name: "Byte", package: "swift-byte"),
                 .product(name: "Index", package: "swift-index"),
             ]
