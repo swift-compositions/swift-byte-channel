@@ -16,8 +16,9 @@ let package = Package(
         .library(name: "Byte Channel", targets: ["Byte Channel"]),
     ],
     dependencies: [
+        .package(url: "https://github.com/swift-molecules/swift-async-semaphore.git", branch: "main"),
         .package(
-            url: "https://github.com/swift-molecules/swift-async.git",
+            url: "https://github.com/swift-molecules/swift-async-channel.git",
             branch: "main"
         ),
         .package(
@@ -53,8 +54,8 @@ let package = Package(
             name: "Byte Channel",
             dependencies: [
                 "Byte Chunk",
-                .product(name: "Async Channel", package: "swift-async"),
-                .product(name: "Async Semaphore", package: "swift-async"),
+                .product(name: "Async Channel", package: "swift-async-channel"),
+                .product(name: "Async Semaphore", package: "swift-async-semaphore"),
                 .product(name: "Buffer", package: "swift-buffer"),
                 .product(name: "Byte", package: "swift-byte"),
                 .product(name: "Index", package: "swift-index"),
