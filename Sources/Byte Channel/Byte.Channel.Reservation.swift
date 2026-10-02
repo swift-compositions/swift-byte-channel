@@ -1,3 +1,4 @@
+import Byte
 import Async_Semaphore
 
 extension Byte.Channel {

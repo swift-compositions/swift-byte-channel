@@ -1,5 +1,7 @@
-import Async_Channel
-import Byte_Chunk
+public import Byte
+public import Async_Channel
+public import Byte_Chunk
+import Synchronization
 
 extension Byte.Channel {
     /// The outbound endpoint for owned byte chunks.
@@ -31,10 +33,11 @@ extension Byte.Channel.Writer {
             }
 
         case .bounded(let sender, let gate):
-            let slot = Accepted.Slot(consume chunk)
+            let count = chunk.count
+            let slot = Byte.Channel<Failure>.Accepted.Slot(consume chunk)
             do throws(Byte.Channel<Failure>.Error) {
-                let reservation = try await gate.reserve(slot.chunk.withLock { $0!.count })
-                try await sender.send(Accepted(chunk: slot, reservation: consume reservation))
+                let reservation = try await gate.reserve(count)
+                try await sender.send(Byte.Channel<Failure>.Accepted(chunk: slot, reservation: consume reservation))
                 return .sent
             } catch {
                 return .rejected(slot.take(), error)
@@ -53,12 +56,12 @@ extension Byte.Channel.Writer {
     }
 
     /// Fails this outbound direction after its accepted chunks drain.
-    public func fail(_ failure: consuming Failure) {
+    public func fail(_ failure: Failure) {
         switch backend {
-        case .rendezvous(let sender): sender.fail(consume failure)
+        case .rendezvous(let sender): sender.fail(failure)
 
         case .bounded(let sender, let gate):
-            if gate.terminate(.failed(failure)) { sender.fail(consume failure) }
+            if gate.terminate(.failed(failure)) { sender.fail(failure) }
         }
     }
 }

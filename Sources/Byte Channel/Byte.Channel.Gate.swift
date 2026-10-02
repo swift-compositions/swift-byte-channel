@@ -1,6 +1,7 @@
+import Cardinal
 import Async_Channel
 import Async_Semaphore
-import Buffer
+import Byte
 import Byte_Chunk
 import Index
 import Synchronization
@@ -17,21 +18,21 @@ extension Byte.Channel {
             var terminal: Terminal?
         }
 
-        let capacity: Buffer.Capacity<Byte>
+        let capacity: Index<Byte>.Count
         let turn: Async.Semaphore
         let bytes: Async.Semaphore
         let state: Mutex<State>
 
-        init(capacity: Buffer.Capacity<Byte>) {
-            precondition(capacity.count != .zero)
+        init(capacity: Index<Byte>.Count) {
+            precondition(capacity != .zero)
             self.capacity = capacity
             self.turn = Async.Semaphore(capacity: 1)
-            self.bytes = Async.Semaphore(capacity: Int(capacity.count))
+            self.bytes = Async.Semaphore(capacity: Int(clamping: capacity))
             self.state = Mutex(State(terminal: nil))
         }
 
         func reserve(_ count: Index<Byte>.Count) async throws(Error) -> Reservation {
-            precondition(count <= capacity.count, "chunk exceeds channel byte capacity")
+            precondition(count <= capacity, "chunk exceeds channel byte capacity")
             do {
                 try await turn.wait()
             } catch {
@@ -40,7 +41,7 @@ extension Byte.Channel {
 
             var acquired = 0
             do {
-                while acquired < Int(count) {
+                while acquired < Int(clamping: count) {
                     try await bytes.wait()
                     acquired += 1
                 }
@@ -62,7 +63,7 @@ extension Byte.Channel {
                 }
                 throw Self.error(terminal)
             }
-            return Reservation(semaphore: bytes, count: Int(count))
+            return Reservation(semaphore: bytes, count: Int(clamping: count))
         }
 
         func terminate(_ terminal: Terminal) -> Bool {

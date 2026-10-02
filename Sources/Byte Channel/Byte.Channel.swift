@@ -1,33 +1,33 @@
 public import Async_Channel
-public import Buffer
 public import Byte_Chunk
 public import Byte
 public import Index
+public import Pair
 
 extension Byte {
     /// A typed, bidirectional channel of owned byte chunks.
     public struct Channel<Failure: Swift.Error & Sendable>: ~Copyable, Sendable {
         public var reader: Reader
         public let writer: Writer
-        let bound: Buffer.Capacity<Byte>
+        let bound: Index<Byte>.Count
 
-        public var capacity: Buffer.Capacity<Byte> {
+        public var capacity: Index<Byte>.Count {
             borrowing get { bound }
         }
 
         /// Creates connected endpoints with a byte capacity for each direction.
-        public static func pair(capacity: Buffer.Capacity<Byte>) -> (Self, Self) {
-            if capacity.count == .zero {
-                var duplexes = Async.Channel<Byte.Chunk>.Typed<Failure>.Rendezvous.Duplex.pair()
-                return (
+        public static func pair(capacity: Index<Byte>.Count) -> Pair<Self, Self> {
+            if capacity == .zero {
+                let duplexes = Async.Channel<Byte.Chunk>.Typed<Failure>.Rendezvous.Duplex.pair()
+                return Pair(
                     .init(
-                        reader: .init(.rendezvous(consume duplexes.0.inbound)),
-                        writer: .init(.rendezvous(duplexes.0.outbound)),
+                        reader: .init(.rendezvous(consume duplexes.first.inbound)),
+                        writer: .init(.rendezvous(duplexes.first.outbound)),
                         capacity: capacity
                     ),
                     .init(
-                        reader: .init(.rendezvous(consume duplexes.1.inbound)),
-                        writer: .init(.rendezvous(duplexes.1.outbound)),
+                        reader: .init(.rendezvous(consume duplexes.second.inbound)),
+                        writer: .init(.rendezvous(duplexes.second.outbound)),
                         capacity: capacity
                     )
                 )
@@ -37,7 +37,7 @@ extension Byte {
             var rightToLeft = Async.Channel<Accepted>.Typed<Failure>.Bounded(capacity: .one)
             let leftGate = Gate(capacity: capacity)
             let rightGate = Gate(capacity: capacity)
-            return (
+            return Pair(
                 .init(
                     reader: .init(.bounded(consume rightToLeft.receiver, rightGate)),
                     writer: .init(.bounded(leftToRight.sender, leftGate)),
@@ -51,7 +51,7 @@ extension Byte {
             )
         }
 
-        init(reader: consuming Reader, writer: Writer, capacity: Buffer.Capacity<Byte>) {
+        init(reader: consuming Reader, writer: Writer, capacity: Index<Byte>.Count) {
             self.reader = consume reader
             self.writer = writer
             self.bound = capacity

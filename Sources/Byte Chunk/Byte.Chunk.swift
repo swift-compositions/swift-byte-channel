@@ -1,3 +1,4 @@
+public import Memory_Allocator_Protocol
 public import Buffer_Linear
 public import Byte
 public import Index
@@ -54,7 +55,7 @@ extension Byte.Chunk {
     /// into distinct allocations and deliberately makes no zero-copy claim.
     @inlinable
     public consuming func split(maximum: Index<Byte>.Count) -> Split {
-        let parts = consume payload.split(maximum: maximum)
+        let parts = payload.split(maximum: maximum)
         return .init(prefix: .init(consume parts.prefix), remainder: .init(consume parts.remainder))
     }
 }

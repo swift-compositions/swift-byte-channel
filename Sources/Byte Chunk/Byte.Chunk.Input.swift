@@ -1,7 +1,11 @@
+public import Buffer_Linear
+public import Index
+public import Byte
+public import Memory_Allocator_Protocol
 extension Byte.Chunk {
     /// An owned, unfinalized chunk payload.
     ///
-    /// Its output span is exclusive and lifetime-bound to this input. The
+    /// `edit(_:)` lends its output span exclusively for one call. The
     /// underlying linear buffer owns the initialization ledger; `finish()`
     /// transfers that finalized ledger into a chunk.
     @frozen
@@ -18,17 +22,11 @@ extension Byte.Chunk {
 }
 
 extension Byte.Chunk.Input {
-    /// An exclusive output view whose committed frontier is the input ledger.
     @inlinable
-    public var outputSpan: Swift.OutputSpan<Byte> {
-        @_lifetime(&self)
-        _modify {
-            yield &payload.outputSpan
-        }
-        @_lifetime(borrow self)
-        _read {
-            yield payload.outputSpan
-        }
+    public mutating func edit<Failure: Swift.Error, R: ~Copyable>(
+        _ body: (inout Swift.OutputSpan<Byte>) throws(Failure) -> R
+    ) throws(Failure) -> R {
+        try payload.edit(body)
     }
 
     /// Finalizes the committed output frontier as an owned byte chunk.

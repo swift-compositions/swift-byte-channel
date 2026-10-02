@@ -17,6 +17,9 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/swift-molecules/swift-async-semaphore.git", branch: "main"),
+        .package(url: "https://github.com/swift-atoms/swift-pair.git", branch: "main"),
+        .package(url: "https://github.com/swift-atoms/swift-cardinal.git", branch: "main"),
+        .package(url: "https://github.com/swift-molecules/swift-memory-allocation.git", branch: "main"),
         .package(
             url: "https://github.com/swift-molecules/swift-async-channel.git",
             branch: "main"
@@ -48,6 +51,7 @@ let package = Package(
                 ),
                 .product(name: "Byte", package: "swift-byte"),
                 .product(name: "Index", package: "swift-index"),
+                .product(name: "Memory Allocator Protocol", package: "swift-memory-allocation"),
             ]
         ),
         .target(
@@ -56,14 +60,21 @@ let package = Package(
                 "Byte Chunk",
                 .product(name: "Async Channel", package: "swift-async-channel"),
                 .product(name: "Async Semaphore", package: "swift-async-semaphore"),
-                .product(name: "Buffer", package: "swift-buffer"),
+                .product(name: "Pair", package: "swift-pair"),
+                .product(name: "Cardinal", package: "swift-cardinal"),
                 .product(name: "Byte", package: "swift-byte"),
                 .product(name: "Index", package: "swift-index"),
             ]
         ),
         .testTarget(
             name: "Byte Channel Tests",
-            dependencies: ["Byte Channel"]
+            dependencies: [
+                "Byte Channel",
+                "Byte Chunk",
+                .product(name: "Byte", package: "swift-byte"),
+                .product(name: "Index", package: "swift-index"),
+                .product(name: "Pair", package: "swift-pair"),
+            ]
         ),
     ],
     swiftLanguageModes: [.v6]
