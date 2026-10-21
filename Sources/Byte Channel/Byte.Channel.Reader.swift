@@ -1,8 +1,8 @@
-public import Byte
 public import Async_Channel
+public import Byte
 public import Byte_Chunk
-public import Index
 import Cardinal
+public import Index
 
 extension Byte.Channel {
     /// The move-only inbound endpoint for one chunk at a time.
@@ -31,8 +31,7 @@ extension Byte.Channel {
 
 extension Byte.Channel.Reader {
     /// Receives exactly one producer chunk, without cross-chunk coalescing.
-    public mutating func receive() async throws(Byte.Channel<Failure>.Error) -> sending Byte.Chunk?
-    {
+    public mutating func receive() async throws(Byte.Channel<Failure>.Error) -> sending Byte.Chunk? {
         if var pending = remainder.take() {
             pending.reservation.release(Int(clamping: pending.chunk.count))
             return pending.chunk

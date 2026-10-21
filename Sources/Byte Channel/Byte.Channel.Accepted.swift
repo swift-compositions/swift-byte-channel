@@ -13,7 +13,12 @@ extension Byte.Channel {
             }
 
             func take() -> sending Byte.Chunk {
-                chunk.withLock { $0.take()! }
+                chunk.withLock { slot in
+                    guard let chunk = slot.take() else {
+                        preconditionFailure("Accepted slot is taken exactly once")
+                    }
+                    return chunk
+                }
             }
         }
 

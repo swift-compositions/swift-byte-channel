@@ -1,7 +1,8 @@
 public import Buffer_Linear
-public import Index
 public import Byte
+public import Index
 public import Memory_Allocator_Protocol
+
 extension Byte.Chunk {
     /// An owned, unfinalized chunk payload.
     ///

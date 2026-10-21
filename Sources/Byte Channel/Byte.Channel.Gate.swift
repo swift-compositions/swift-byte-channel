@@ -1,8 +1,8 @@
-import Cardinal
 import Async_Channel
 import Async_Semaphore
 import Byte
 import Byte_Chunk
+import Cardinal
 import Index
 import Synchronization
 

@@ -1,6 +1,6 @@
 public import Async_Channel
-public import Byte_Chunk
 public import Byte
+public import Byte_Chunk
 public import Index
 public import Pair
 

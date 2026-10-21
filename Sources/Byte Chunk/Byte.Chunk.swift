@@ -1,7 +1,7 @@
-public import Memory_Allocator_Protocol
 public import Buffer_Linear
 public import Byte
 public import Index
+public import Memory_Allocator_Protocol
 
 extension Byte {
     /// An owned, contiguous, initialized sequence of bytes.

@@ -1,5 +1,5 @@
-public import Byte
 public import Async_Channel
+public import Byte
 public import Byte_Chunk
 import Synchronization
 
