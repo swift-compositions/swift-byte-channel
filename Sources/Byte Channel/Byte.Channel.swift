@@ -33,8 +33,8 @@ extension Byte {
                 )
             }
 
-            var leftToRight = Async.Channel<Accepted>.Typed<Failure>.Bounded(capacity: .one)
-            var rightToLeft = Async.Channel<Accepted>.Typed<Failure>.Bounded(capacity: .one)
+            let leftToRight = Async.Channel<Accepted>.Typed<Failure>.Bounded(capacity: .one)
+            let rightToLeft = Async.Channel<Accepted>.Typed<Failure>.Bounded(capacity: .one)
             let leftGate = Gate(capacity: capacity)
             let rightGate = Gate(capacity: capacity)
             return Pair(
