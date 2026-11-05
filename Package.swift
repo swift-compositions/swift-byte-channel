@@ -29,10 +29,6 @@ let package = Package(
             branch: "main"
         ),
         .package(
-            url: "https://github.com/swift-atoms/swift-buffer.git",
-            branch: "main"
-        ),
-        .package(
             url: "https://github.com/swift-atoms/swift-byte.git",
             branch: "main"
         ),
