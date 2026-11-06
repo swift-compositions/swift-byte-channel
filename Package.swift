@@ -53,7 +53,7 @@ let package = Package(
         .target(
             name: "Byte Channel",
             dependencies: [
-                "Byte Chunk",
+                .target(name: "Byte Chunk"),
                 .product(name: "Async Channel", package: "swift-async-channel"),
                 .product(name: "Async Semaphore", package: "swift-async-semaphore"),
                 .product(name: "Pair", package: "swift-pair"),
@@ -65,8 +65,8 @@ let package = Package(
         .testTarget(
             name: "Byte Channel Tests",
             dependencies: [
-                "Byte Channel",
-                "Byte Chunk",
+                .target(name: "Byte Channel"),
+                .target(name: "Byte Chunk"),
                 .product(name: "Byte", package: "swift-byte"),
                 .product(name: "Index", package: "swift-index"),
                 .product(name: "Pair", package: "swift-pair"),
