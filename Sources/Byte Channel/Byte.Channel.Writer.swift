@@ -67,14 +67,7 @@ extension Byte.Channel.Writer {
 }
 
 extension Byte.Channel.Writer {
-    /// Namespace for ownership-preserving send results.
-    public enum Send {}
 }
 
 extension Byte.Channel.Writer.Send {
-    /// The ownership-preserving result of any byte-channel send.
-    public enum Outcome: ~Copyable {
-        case sent
-        case rejected(Byte.Chunk, Byte.Channel<Failure>.Error)
-    }
 }
