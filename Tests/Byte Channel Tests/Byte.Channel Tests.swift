@@ -5,14 +5,18 @@ import Index
 import Pair
 import Testing
 
-@Suite
-struct `Byte Channel Tests` {
-    @Suite struct Unit {}
-    @Suite struct `Edge Case` {}
-    @Suite struct Integration {}
+enum `Byte.Channel Tests` {}
+
+extension `Byte.Channel Tests` {
+    @Suite
+    struct `Byte Channel Tests` {
+        @Suite struct Unit {}
+        @Suite struct `Edge Case` {}
+        @Suite struct Integration {}
+    }
 }
 
-extension `Byte Channel Tests`.Unit {
+extension `Byte.Channel Tests`.`Byte Channel Tests`.Unit {
     @Test
     func `chunk input ownership and ledger are source-visible`() async {
         // Static source test: `consume` prevents a second use of `input`; the
@@ -46,7 +50,7 @@ extension `Byte Channel Tests`.Unit {
     }
 }
 
-extension `Byte Channel Tests`.Unit {
+extension `Byte.Channel Tests`.`Byte Channel Tests`.Unit {
     struct Stop: Swift.Error, Equatable {}
 
     @Test
@@ -110,7 +114,7 @@ extension `Byte Channel Tests`.Unit {
     }
 }
 
-extension `Byte Channel Tests`.`Edge Case` {
+extension `Byte.Channel Tests`.`Byte Channel Tests`.`Edge Case` {
     @Test
     func `byte budget edge conditions are source-visible`() async {
         let zero: Index<Byte>.Count = .zero
@@ -137,7 +141,7 @@ extension `Byte Channel Tests`.`Edge Case` {
     }
 }
 
-extension `Byte Channel Tests`.Integration {
+extension `Byte.Channel Tests`.`Byte Channel Tests`.Integration {
     @Test
     func `duplex terminal behavior remains typed`() async {}
 }
