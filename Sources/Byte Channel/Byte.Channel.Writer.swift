@@ -6,16 +6,18 @@ import Synchronization
 extension Byte.Channel {
     /// The outbound endpoint for owned byte chunks.
     public struct Writer: Sendable {
-        enum Backend: Sendable {
-            case bounded(Async.Channel<Accepted>.Typed<Failure>.Sender, Gate)
-            case rendezvous(Async.Channel<Byte.Chunk>.Typed<Failure>.Rendezvous.Sender)
-        }
-
         let backend: Backend
 
         init(_ backend: Backend) {
             self.backend = backend
         }
+    }
+}
+
+extension Byte.Channel.Writer {
+    enum Backend: Sendable {
+        case bounded(Async.Channel<Accepted>.Typed<Failure>.Sender, Gate)
+        case rendezvous(Async.Channel<Byte.Chunk>.Typed<Failure>.Rendezvous.Sender)
     }
 }
 
