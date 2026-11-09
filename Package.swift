@@ -67,6 +67,7 @@ let package = Package(
             dependencies: [
                 .target(name: "Byte Channel"),
                 .target(name: "Byte Chunk"),
+                .product(name: "Async Channel", package: "swift-async-channel"),
                 .product(name: "Byte", package: "swift-byte"),
                 .product(name: "Index", package: "swift-index"),
                 .product(name: "Pair", package: "swift-pair"),

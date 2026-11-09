@@ -32,7 +32,12 @@ extension Byte.Channel {
         }
 
         func reserve(_ count: Index<Byte>.Count) async throws(Error) -> Reservation {
-            precondition(count <= capacity, "chunk exceeds channel byte capacity")
+            guard count <= capacity else {
+                if let terminal = state.withLock({ $0.terminal }) {
+                    throw Self.error(terminal)
+                }
+                throw .full
+            }
             do {
                 try await turn.wait()
             } catch {

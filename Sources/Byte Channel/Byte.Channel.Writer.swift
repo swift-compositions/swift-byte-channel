@@ -21,6 +21,9 @@ extension Byte.Channel {
 
 extension Byte.Channel.Writer {
     /// Sends one whole chunk while preserving ownership on rejection.
+    ///
+    /// A chunk larger than the channel's byte capacity can never fit and is
+    /// rejected with ``Byte/Channel/Error/full`` and handed back.
     public func send(_ chunk: consuming sending Byte.Chunk) async -> Send.Outcome {
         switch backend {
         case .rendezvous(let sender):

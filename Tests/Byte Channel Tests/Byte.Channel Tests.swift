@@ -1,3 +1,4 @@
+import Async_Channel
 import Byte
 import Byte_Channel
 import Byte_Chunk
@@ -132,6 +133,28 @@ extension `Byte.Channel Tests`.`Byte Channel Tests`.`Edge Case` {
         // own, mutate, retag, or shadow the fixed byte bound.
         // Empty chunks charge one admission unit; an oversize send is rejected
         // by the gate rather than bypassing the declared byte capacity.
+    }
+
+    @Test
+    func `an oversize send is rejected with the chunk handed back`() async {
+        let channels = Byte.Channel<Never>.pair(capacity: .one)
+        var input = Byte.Chunk.Input(capacity: 2)
+        input.edit { output in
+            output.append(Byte(bitPattern: 0x01))
+            output.append(Byte(bitPattern: 0x02))
+        }
+        switch await channels.first.writer.send(input.finish()) {
+        case .sent:
+            Issue.record("Expected an oversize chunk to be rejected")
+
+        case .rejected(let chunk, let error):
+            #expect(chunk.count == 2)
+            #expect(chunk.span[1] == Byte(bitPattern: 0x02))
+            guard case .full = error else {
+                Issue.record("Expected .full, got \(error)")
+                return
+            }
+        }
     }
 
     @Test
